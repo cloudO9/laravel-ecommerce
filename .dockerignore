@@ -1,0 +1,15 @@
+node_modules
+.git
+.env
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+vendor
+.DS_Store
+Thumbs.db
+*.log
+.dockerignore
+Dockerfile
+docker-compose.yml
+README.md
