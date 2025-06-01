@@ -1,0 +1,36 @@
+version: 1.0
+runtime: php82
+build:
+  commands:
+    build:
+      - echo "🚀 Building Laravel Gaming Store..."
+      - echo "Installing PHP MongoDB extension..."
+      - pecl install mongodb
+      - echo "extension=mongodb.so" >> /opt/php/etc/php.ini
+      - echo "Installing Composer dependencies..."
+      - composer install --no-dev --optimize-autoloader --no-interaction
+      - echo "Installing NPM dependencies..."
+      - npm install --production
+      - echo "Building assets..."
+      - npm run build
+      - echo "Setting up Laravel..."
+      - cp .env.production .env
+      - php artisan key:generate --force
+      - php artisan config:cache
+      - php artisan route:cache
+      - php artisan view:cache
+      - echo "Setting permissions..."
+      - chmod -R 755 storage bootstrap/cache
+      - php artisan storage:link
+      - echo "✅ Build completed successfully!"
+run:
+  runtime-version: 8.2
+  command: php artisan serve --host=0.0.0.0 --port=8000
+  network:
+    port: 8000
+    env: PORT
+  env:
+    - name: APP_ENV
+      value: production
+    - name: APP_DEBUG
+      value: "false"
