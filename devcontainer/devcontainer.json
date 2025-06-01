@@ -1,0 +1,31 @@
+{
+  "name": "Laravel Gaming Store",
+  "image": "mcr.microsoft.com/devcontainers/php:1-8.2-bullseye",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "18"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/aws-cli:1": {}
+  },
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  "forwardPorts": [8000, 3000, 27017],
+  "portsAttributes": {
+    "8000": {
+      "label": "Laravel App",
+      "onAutoForward": "notify"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "bmewburn.vscode-intelephense-client",
+        "bradlc.vscode-tailwindcss",
+        "formulahendry.auto-rename-tag",
+        "ms-vscode.vscode-json",
+        "ms-vscode.vscode-yaml"
+      ]
+    }
+  },
+  "remoteUser": "vscode"
+}

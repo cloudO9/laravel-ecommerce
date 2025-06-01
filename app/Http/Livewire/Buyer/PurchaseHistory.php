@@ -106,7 +106,7 @@ class PurchaseHistory extends Component
                 return;
             }
 
-            session()->flash('message', '🛒 Reorder functionality will be implemented soon!');
+            session()->flash('message', ' Reorder functionality will be implemented soon!');
             
         } catch (\Exception $e) {
             session()->flash('error', 'Failed to reorder items.');
@@ -173,7 +173,7 @@ class PurchaseHistory extends Component
 
     public function render()
     {
-        return view('livewire.buyer.purchasehistory', [  // ← MATCHES your actual view path
+        return view('livewire.buyer.purchasehistory', [  
             'orders' => $this->orders,
             'totalOrders' => $this->totalOrders,
             'totalPurchases' => $this->totalPurchases,

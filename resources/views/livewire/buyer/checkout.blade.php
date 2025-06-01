@@ -7,9 +7,9 @@
             <div>Cart Items: <strong>{{ count($cartItems) }}</strong></div>
             <div>Cart Total: <strong>${{ number_format($cartTotal, 2) }}</strong></div>
             <div>Order Type: <strong>{{ $orderType }}</strong></div>
-            <div>Stripe Key: <strong>{{ config('services.stripe.key') ? 'Set ✅' : 'Missing ❌' }}</strong></div>
-            <div>Stripe Secret: <strong>{{ config('services.stripe.secret') ? 'Set ✅' : 'Missing ❌' }}</strong></div>
-            <div>Client Secret: <strong>{{ $stripeClientSecret ? 'Generated ✅' : 'Missing ❌' }}</strong></div>
+            <div>Stripe Key: <strong>{{ config('services.stripe.key') ? 'Set ' : 'Missing ' }}</strong></div>
+            <div>Stripe Secret: <strong>{{ config('services.stripe.secret') ? 'Set ' : 'Missing ' }}</strong></div>
+            <div>Client Secret: <strong>{{ $stripeClientSecret ? 'Generated ' : 'Missing ' }}</strong></div>
             <div>Payment Intent ID: <strong>{{ $paymentIntentId ?: 'Not created' }}</strong></div>
         </div>
         <div class="flex gap-2 mt-2">
@@ -27,7 +27,7 @@
     <!-- Success/Error Messages -->
     @if (session()->has('message'))
         <div class="bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 px-6 py-4 rounded-xl mb-8 flex items-center">
-            <span class="text-2xl mr-3">✅</span>
+            <span class="text-2xl mr-3"></span>
             <span class="font-medium">{{ session('message') }}</span>
         </div>
     @endif
@@ -152,10 +152,10 @@
             <!-- Payment Status Check -->
             <div class="bg-blue-600/10 border border-blue-600/30 rounded-lg p-3 mb-4 text-sm">
                 <div class="text-blue-300">
-                    <div>Client Secret: {{ $stripeClientSecret ? '✅ Generated (' . strlen($stripeClientSecret) . ' chars)' : '❌ Missing' }}</div>
-                    <div>Payment Intent: {{ $paymentIntentId ?: '❌ Not created' }}</div>
+                    <div>Client Secret: {{ $stripeClientSecret ? ' Generated (' . strlen($stripeClientSecret) . ' chars)' : '❌ Missing' }}</div>
+                    <div>Payment Intent: {{ $paymentIntentId ?: ' Not created' }}</div>
                     <div>Cart Total: ${{ number_format($cartTotal, 2) }}</div>
-                    <div>Stripe Keys: {{ config('services.stripe.secret') ? '✅ Configured' : '❌ Missing' }}</div>
+                    <div>Stripe Keys: {{ config('services.stripe.secret') ? ' Configured' : ' Missing' }}</div>
                 </div>
                 
                 @if(!$stripeClientSecret)
@@ -258,7 +258,7 @@
             <button id="submit-payment" class="btn-gaming-primary px-6 py-3" 
                     style="display: {{ $stripeClientSecret ? 'block' : 'none' }}">
                 <span id="payment-button-text">
-                    💳 Complete Order (${{ number_format($cartTotal, 2) }})
+                    Complete Order (${{ number_format($cartTotal, 2) }})
                 </span>
             </button>
         @endif
@@ -323,7 +323,7 @@ function debugStripeStatus() {
         console.log('Container content preview:', container.innerHTML.substring(0, 100));
     }
     
-    alert('✅ Check browser console for detailed debug info');
+    alert(' Check browser console for detailed debug info');
 }
 
 // Force initialize Stripe
@@ -354,13 +354,13 @@ function initializeStripe() {
     
     // Check prerequisites
     if (!config.clientSecret) {
-        console.error('❌ No client secret available');
+        console.error('No client secret available');
         
         const container = document.getElementById('payment-element');
         if (container) {
             container.innerHTML = `
                 <div class="text-center text-red-400 py-8">
-                    <div class="text-2xl mb-2">⚠️</div>
+                    <div class="text-2xl mb-2"></div>
                     <div class="font-bold mb-2">Client Secret Missing</div>
                     <div class="text-sm mb-4">Payment intent not created yet</div>
                     <button onclick="window.location.reload()" 
@@ -374,23 +374,23 @@ function initializeStripe() {
     }
     
     if (!config.publishableKey) {
-        console.error('❌ No publishable key available');
+        console.error(' No publishable key available');
         return;
     }
     
     if (typeof Stripe === 'undefined') {
-        console.error('❌ Stripe JS not loaded');
+        console.error(' Stripe JS not loaded');
         return;
     }
     
     const container = document.getElementById('payment-element');
     if (!container) {
-        console.error('❌ Payment element container not found');
+        console.error(' Payment element container not found');
         return;
     }
     
     if (stripe) {
-        console.log('✅ Stripe already initialized');
+        console.log('Stripe already initialized');
         return;
     }
     
@@ -429,14 +429,14 @@ function initializeStripe() {
         
         // Set up event listeners
         paymentElement.on('ready', function() {
-            console.log('✅ Payment element is ready and mounted');
+            console.log('Payment element is ready and mounted');
             container.style.border = '2px solid #00ff88';
             container.style.backgroundColor = '#1e293b';
             
             // Show success message
             const successDiv = document.createElement('div');
             successDiv.className = 'text-center text-green-400 text-sm mt-2';
-            successDiv.textContent = '✅ Payment form loaded successfully';
+            successDiv.textContent = ' Payment form loaded successfully';
             container.appendChild(successDiv);
         });
         
@@ -448,15 +448,15 @@ function initializeStripe() {
             console.log('Payment element focused');
         });
         
-        console.log('✅ Stripe initialization completed successfully');
+        console.log(' Stripe initialization completed successfully');
         
     } catch (error) {
-        console.error('❌ Stripe initialization failed:', error);
+        console.error(' Stripe initialization failed:', error);
         
         if (container) {
             container.innerHTML = `
                 <div class="text-center text-red-400 py-8">
-                    <div class="text-2xl mb-2">⚠️</div>
+                    <div class="text-2xl mb-2"></div>
                     <div class="font-bold mb-2">Payment Form Failed to Load</div>
                     <div class="text-sm mb-4">${error.message}</div>
                     <button onclick="forceInitializeStripe()" 
@@ -480,10 +480,10 @@ function attemptStripeInit() {
     });
     
     if (config.currentStep === 3 && config.clientSecret && config.publishableKey) {
-        console.log('✅ All conditions met, attempting Stripe initialization...');
+        console.log('All conditions met, attempting Stripe initialization...');
         setTimeout(initializeStripe, 500);
     } else {
-        console.log('❌ Conditions not met for Stripe init');
+        console.log('Conditions not met for Stripe init');
         if (config.currentStep === 3 && !config.clientSecret) {
             console.log('On step 3 but no client secret - payment intent may need to be created');
         }
@@ -518,8 +518,8 @@ document.addEventListener('click', function(e) {
         console.log('=== PAYMENT SUBMISSION STARTED ===');
         
         if (!stripe || !elements) {
-            console.error('❌ Stripe not initialized');
-            alert('Payment system not ready. Please click "🔄 Force Load Form" button and try again.');
+            console.error('Stripe not initialized');
+            alert('Payment system not ready. Please click "Force Load Form" button and try again.');
             return;
         }
         
@@ -538,16 +538,16 @@ document.addEventListener('click', function(e) {
         }).then(function(result) {
             // Reset button state
             button.disabled = false;
-            buttonText.innerHTML = '💳 Complete Order (${{ number_format($cartTotal, 2) }})';
+            buttonText.innerHTML = 'Complete Order (${{ number_format($cartTotal, 2) }})';
             
             if (result.error) {
-                console.error('❌ Payment failed:', result.error);
+                console.error(' Payment failed:', result.error);
                 const errorDiv = document.getElementById('payment-errors');
                 errorDiv.textContent = result.error.message;
                 errorDiv.style.display = 'block';
             } else if (result.paymentIntent.status === 'succeeded') {
-                console.log('✅ Payment succeeded, processing order...');
-                buttonText.innerHTML = '✅ Payment Successful - Processing Order...';
+                console.log('Payment succeeded, processing order...');
+                buttonText.innerHTML = 'Payment Successful - Processing Order...';
                 
                 // Call Livewire method to process the order
                 @this.call('processOrder');
@@ -555,9 +555,9 @@ document.addEventListener('click', function(e) {
                 console.log('Payment status:', result.paymentIntent.status);
             }
         }).catch(function(error) {
-            console.error('❌ Payment confirmation error:', error);
+            console.error(' Payment confirmation error:', error);
             button.disabled = false;
-            buttonText.innerHTML = '💳 Complete Order (${{ number_format($cartTotal, 2) }})';
+            buttonText.innerHTML = 'Complete Order (${{ number_format($cartTotal, 2) }})';
         });
     }
 });

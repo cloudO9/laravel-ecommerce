@@ -82,7 +82,6 @@ class ManageGames extends Component
             
             $this->totalGames = Game::where('seller_id', $sellerId)->count();
             
-            // Get games with their statuses
             $games = Game::where('seller_id', $sellerId)->get();
             
             $this->availableGames = 0;
@@ -143,27 +142,22 @@ class ManageGames extends Component
         try {
             $query = Game::where('seller_id', Auth::id());
 
-            // Search filter
             if ($this->search) {
                 $query->where('name', 'like', '%' . $this->search . '%');
             }
 
-            // Type filter
             if ($this->typeFilter === 'rent') {
                 $query->where('is_for_rent', true);
             } elseif ($this->typeFilter === 'sale') {
                 $query->where('is_for_rent', false);
             }
 
-            // Condition filter
             if ($this->conditionFilter) {
                 $query->where('condition', $this->conditionFilter);
             }
 
-            // Get all games that match basic filters
             $allGames = $query->get();
 
-            // Apply status filter if needed
             if ($this->statusFilter) {
                 $filteredGames = $allGames->filter(function ($game) {
                     switch ($this->statusFilter) {
@@ -181,17 +175,14 @@ class ManageGames extends Component
                 $filteredGames = $allGames;
             }
 
-            // Sort by created_at desc
             $sortedGames = $filteredGames->sortByDesc('created_at');
 
-            // Manual pagination
             $currentPage = request()->get('page', 1);
             $perPage = 12;
             $total = $sortedGames->count();
             $offset = ($currentPage - 1) * $perPage;
             $items = $sortedGames->slice($offset, $perPage)->values();
 
-            // Create paginator
             $paginator = new \Illuminate\Pagination\LengthAwarePaginator(
                 $items,
                 $total,
@@ -254,10 +245,8 @@ class ManageGames extends Component
                 return;
             }
 
-            // Handle image upload
             $imagePath = $this->editForm['image'];
             if ($this->newImage) {
-                // Delete old image if exists
                 if ($this->editingGame->image && Storage::exists('public/' . $this->editingGame->image)) {
                     Storage::delete('public/' . $this->editingGame->image);
                 }
@@ -265,7 +254,6 @@ class ManageGames extends Component
                 $imagePath = $this->newImage->store('games', 'public');
             }
 
-            // Update game
             $this->editingGame->update([
                 'name' => $this->editForm['name'],
                 'is_for_rent' => $this->editForm['is_for_rent'],
@@ -292,7 +280,6 @@ class ManageGames extends Component
     public function confirmDelete($gameId)
     {
         try {
-            // Convert to string to ensure proper comparison with MongoDB ObjectId
             $gameId = (string) $gameId;
             
             $game = Game::where('seller_id', Auth::id())
@@ -324,26 +311,18 @@ class ManageGames extends Component
             $gameId = $this->gameToDelete->_id;
             $gameName = $this->gameToDelete->name;
 
-            // Delete image if exists
             if ($this->gameToDelete->image && Storage::exists('public/' . $this->gameToDelete->image)) {
                 Storage::delete('public/' . $this->gameToDelete->image);
             }
 
-            // Delete game status first (using string conversion for MongoDB)
             GameStatus::where('game_id', (string) $gameId)->delete();
 
-            // Delete the game
             $deleted = Game::where('_id', $gameId)->delete();
 
             if ($deleted) {
-                // Reset modal state
                 $this->showDeleteModal = false;
                 $this->gameToDelete = null;
-                
-                // Reload stats
                 $this->loadStats();
-                
-                // Reset page to 1 if we're on a page that might now be empty
                 $this->resetPage();
 
                 session()->flash('success', "Game '{$gameName}' has been deleted successfully!");
@@ -354,48 +333,6 @@ class ManageGames extends Component
         } catch (\Exception $e) {
             Log::error('Error deleting game: ' . $e->getMessage());
             session()->flash('error', 'Failed to delete game: ' . $e->getMessage());
-        }
-    }
-
-    // Direct delete method for testing
-    public function directDeleteGame($gameId)
-    {
-        try {
-            $gameId = (string) $gameId;
-            
-            $game = Game::where('seller_id', Auth::id())
-                       ->where('_id', $gameId)
-                       ->first();
-            
-            if (!$game) {
-                session()->flash('error', 'Game not found');
-                return;
-            }
-            
-            $gameName = $game->name;
-            
-            // Delete image
-            if ($game->image && Storage::exists('public/' . $game->image)) {
-                Storage::delete('public/' . $game->image);
-            }
-            
-            // Delete status
-            GameStatus::where('game_id', $gameId)->delete();
-            
-            // Delete game
-            $deleted = $game->delete();
-            
-            if ($deleted) {
-                $this->loadStats();
-                $this->resetPage();
-                session()->flash('success', "Game '{$gameName}' deleted successfully!");
-            } else {
-                session()->flash('error', 'Failed to delete game');  
-            }
-            
-        } catch (\Exception $e) {
-            Log::error('Direct delete error: ' . $e->getMessage());
-            session()->flash('error', 'Delete failed: ' . $e->getMessage());
         }
     }
 
@@ -430,7 +367,6 @@ class ManageGames extends Component
                 return;
             }
 
-            // Check if trying to make sold game available again
             if ($this->gameForStatus->isSold() && $this->newStatus === 'available') {
                 session()->flash('error', 'Cannot make sold games available again. Please create a new listing.');
                 $this->showStatusModal = false;

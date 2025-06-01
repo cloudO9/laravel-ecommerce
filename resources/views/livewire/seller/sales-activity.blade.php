@@ -41,7 +41,7 @@
             Filter Orders
         </h3>
         
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-3">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
             <!-- Date Range -->
             <div>
                 <label class="block text-xs font-medium text-slate-300 mb-1">Time Period</label>
@@ -51,19 +51,6 @@
                     <option value="30">Last 30 days</option>
                     <option value="90">Last 3 months</option>
                     <option value="all">All time</option>
-                </select>
-            </div>
-
-            <!-- Status Filter -->
-            <div>
-                <label class="block text-xs font-medium text-slate-300 mb-1">Status</label>
-                <select wire:model.live="statusFilter" 
-                    class="w-full px-3 py-2 bg-slate-800 border border-slate-600/50 rounded text-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/40">
-                    <option value="">All Statuses</option>
-                    <option value="paid">💳 Paid</option>
-                    <option value="shipped">🚛 Shipped</option>
-                    <option value="delivered">✅ Delivered</option>
-                    <option value="cancelled">❌ Cancelled</option>
                 </select>
             </div>
 
@@ -260,13 +247,13 @@
                 </div>
                 <h3 class="text-xl font-bold text-slate-300 mb-2">No sales or rentals found</h3>
                 <p class="text-slate-400 text-sm mb-4">
-                    @if($statusFilter || $typeFilter || $gameFilter)
+                    @if($typeFilter || $gameFilter)
                         No orders match your current filters. Try adjusting your search criteria.
                     @else
                         Your game sales and rentals will appear here once buyers start purchasing.
                     @endif
                 </p>
-                @if($statusFilter || $typeFilter || $gameFilter)
+                @if($typeFilter || $gameFilter)
                     <button wire:click="clearFilters" 
                         class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 mx-auto">
                         <span>🔄</span>

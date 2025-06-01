@@ -11,49 +11,293 @@
     <style>
         body { 
             font-family: 'Inter', sans-serif; 
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            overflow-x: hidden;
+            background: #000;
         }
-        .glass-effect {
-            background: rgba(30, 41, 59, 0.8);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(71, 85, 105, 0.3);
+        
+        /* Enhanced Dark Background with Intense Multiple Glow Layers */
+        .gaming-bg {
+            background: 
+                radial-gradient(circle at 25% 25%, #1a0a2e 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, #16213e 0%, transparent 50%),
+                radial-gradient(circle at 50% 0%, #0f1419 0%, transparent 50%),
+                linear-gradient(180deg, #000000 0%, #0a0a0a 50%, #000000 100%);
+            position: relative;
+            min-height: 100vh;
         }
-        .input-glow:focus {
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+        
+        /* Animated Background Glow Effects */
+        .gaming-bg::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 0, 255, 0.25) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 40% 70%, rgba(147, 51, 234, 0.3) 0%, transparent 40%),
+                radial-gradient(circle at 60% 40%, rgba(168, 85, 247, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+            animation: backgroundPulse 8s ease-in-out infinite alternate;
         }
-        .floating {
-            animation: float 6s ease-in-out infinite;
+        
+        @keyframes backgroundPulse {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
         }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+        
+        /* Enhanced Glass Effect with Stronger Glow */
+        .glass-card {
+            background: rgba(5, 5, 15, 0.8);
+            backdrop-filter: blur(25px);
+            border: 2px solid;
+            border-image: linear-gradient(135deg, 
+                rgba(255, 0, 255, 0.5) 0%, 
+                rgba(0, 255, 255, 0.3) 50%, 
+                rgba(147, 51, 234, 0.5) 100%) 1;
+            box-shadow: 
+                0 15px 35px rgba(255, 0, 255, 0.2),
+                0 5px 15px rgba(0, 255, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 0 50px rgba(147, 51, 234, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 25px 50px rgba(255, 0, 255, 0.3),
+                0 0 50px rgba(0, 255, 255, 0.2),
+                0 0 100px rgba(147, 51, 234, 0.15);
+            border-image: linear-gradient(135deg, 
+                rgba(255, 0, 255, 0.8) 0%, 
+                rgba(0, 255, 255, 0.6) 50%, 
+                rgba(255, 0, 255, 0.8) 100%) 1;
+        }
+        
+        /* Neon Text Effects */
+        .neon-text {
+            color: #ffffff;
+            text-shadow: 
+                0 0 5px rgba(255, 0, 255, 0.4),
+                0 0 10px rgba(255, 0, 255, 0.3),
+                0 0 15px rgba(255, 0, 255, 0.2);
+        }
+        
+        .neon-text-cyan {
+            color: #ffffff;
+            text-shadow: 
+                0 0 5px rgba(0, 255, 255, 0.5),
+                0 0 10px rgba(0, 255, 255, 0.3),
+                0 0 15px rgba(0, 255, 255, 0.2);
+        }
+        
+        .gaming-gradient-text {
+            background: linear-gradient(135deg, #ff00ff 0%, #8b5cf6 25%, #00ffff 50%, #9333ea 75%, #ff00ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: gradientShift 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 5px rgba(255, 0, 255, 0.3)) drop-shadow(0 0 8px rgba(0, 255, 255, 0.2));
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        /* Enhanced Input Styles */
+        .gaming-input {
+            background: rgba(5, 5, 15, 0.9) !important;
+            border: 2px solid rgba(255, 0, 255, 0.3) !important;
+            color: #fff !important;
+            transition: all 0.3s ease;
+        }
+        
+        .gaming-input:focus {
+            border-color: rgba(255, 0, 255, 0.7) !important;
+            box-shadow: 
+                0 0 20px rgba(255, 0, 255, 0.4),
+                0 0 40px rgba(0, 255, 255, 0.2) !important;
+            outline: none !important;
+            transform: scale(1.02);
+        }
+        
+        .gaming-input::placeholder {
+            color: rgba(255, 255, 255, 0.4) !important;
+        }
+        
+        /* Gaming Button with Intense Effects */
+        .gaming-button {
+            background: linear-gradient(135deg, #ff00ff, #00ffff) !important;
+            border: none;
+            color: #000 !important;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .gaming-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+        
+        .gaming-button:hover::before {
+            left: 100%;
+        }
+        
+        .gaming-button:hover {
+            box-shadow: 
+                0 0 20px rgba(255, 0, 255, 0.8),
+                0 0 40px rgba(0, 255, 255, 0.6),
+                0 0 60px rgba(255, 0, 255, 0.4);
+            transform: scale(1.05) translateY(-2px);
+            color: #000 !important;
+        }
+        
+        /* Gaming Links */
+        .gaming-link {
+            color: #ff00ff !important;
+            text-shadow: 0 0 5px rgba(255, 0, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .gaming-link:hover {
+            color: #00ffff !important;
+            text-shadow: 
+                0 0 5px #00ffff,
+                0 0 10px #00ffff,
+                0 0 15px #00ffff;
+        }
+        
+        /* Floating Animation Enhanced */
+        .floating-glow {
+            animation: enhancedFloat 4s ease-in-out infinite;
+        }
+        
+        @keyframes enhancedFloat {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg);
+                filter: drop-shadow(0 10px 20px rgba(255, 0, 255, 0.3));
+            }
+            25% { 
+                transform: translateY(-10px) rotate(1deg);
+                filter: drop-shadow(0 15px 30px rgba(0, 255, 255, 0.4));
+            }
+            50% { 
+                transform: translateY(-20px) rotate(0deg);
+                filter: drop-shadow(0 20px 40px rgba(255, 0, 255, 0.5));
+            }
+            75% { 
+                transform: translateY(-10px) rotate(-1deg);
+                filter: drop-shadow(0 15px 30px rgba(0, 255, 255, 0.4));
+            }
+        }
+        
+        .pulse-rainbow {
+            animation: pulseRainbow 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulseRainbow {
+            0%, 100% { 
+                box-shadow: 0 0 30px rgba(255, 0, 255, 0.6);
+            }
+            33% { 
+                box-shadow: 0 0 40px rgba(0, 255, 255, 0.8);
+            }
+            66% { 
+                box-shadow: 0 0 50px rgba(147, 51, 234, 0.7);
+            }
+        }
+        
+        /* Orbital Rings Animation */
+        .orbital-rings {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border: 2px solid rgba(255, 0, 255, 0.3);
+            border-radius: 50%;
+            animation: orbit 10s linear infinite;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .orbital-rings::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 50%;
+            animation: orbit 15s linear infinite reverse;
+        }
+        
+        @keyframes orbit {
+            0% { transform: translateX(-50%) rotate(0deg); }
+            100% { transform: translateX(-50%) rotate(360deg); }
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #ff00ff, #00ffff);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+        }
+        
+        /* Background Pattern */
+        .pattern-overlay {
+            background-image: radial-gradient(circle at 2px 2px, rgba(255, 0, 255, 0.15) 1px, transparent 0);
+            background-size: 30px 30px;
+            opacity: 0.3;
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
-    <!-- Background Pattern -->
-    <div class="fixed inset-0 opacity-10">
-        <div class="absolute inset-0" style="background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0); background-size: 50px 50px;"></div>
-    </div>
+<body class="gaming-bg min-h-screen flex items-center justify-center p-4">
+    <!-- Enhanced Background Pattern -->
+    <div class="fixed inset-0 pattern-overlay z-0"></div>
 
     <!-- Login Card -->
     <div class="w-full max-w-md relative z-10">
-        <!-- Logo Section -->
-        <div class="text-center mb-8 floating">
-            <div class="w-20 h-20 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-                <span class="text-3xl">💿</span>
+        <!-- Logo Section with Enhanced Effects -->
+        <div class="text-center mb-8 floating-glow relative">
+            <!-- Orbital Rings -->
+            <div class="orbital-rings"></div>
+            
+            <div class="w-24 h-24 mx-auto mb-6 relative pulse-rainbow rounded-2xl flex items-center justify-center" 
+                 style="background: linear-gradient(135deg, #ff00ff, #00ffff);">
+                <span class="text-4xl">🎮</span>
             </div>
-            <h1 class="text-3xl font-bold bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent mb-2">
+            <h1 class="text-4xl font-bold gaming-gradient-text mb-3">
                 GameHub
             </h1>
-            <p class="text-slate-400">Welcome back, gamer!</p>
+            <p class="neon-text-cyan text-lg">Welcome back, gamer!</p>
         </div>
 
-        <!-- Login Form -->
-        <div class="glass-effect rounded-2xl p-8 shadow-2xl">
-            <div class="text-center mb-6">
-                <h2 class="text-2xl font-bold text-white mb-2">Sign In</h2>
-                <p class="text-slate-400 text-sm">Access your gaming marketplace</p>
+        <!-- Login Form with Glass Card -->
+        <div class="glass-card rounded-2xl p-8 shadow-2xl">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold neon-text mb-3">Sign In</h2>
+                <p class="neon-text-cyan text-base">Access your gaming marketplace</p>
             </div>
 
             <!-- Validation Errors -->
@@ -77,8 +321,9 @@
 
                 <!-- Email Field -->
                 <div>
-                    <label for="email" class="flex items-center text-sm font-medium text-slate-200 mb-2">
-                        <span class="w-5 h-5 bg-gradient-to-r from-emerald-500 to-green-500 rounded text-xs flex items-center justify-center mr-2">📧</span>
+                    <label for="email" class="flex items-center text-sm font-medium neon-text mb-3">
+                        <span class="w-6 h-6 rounded text-sm flex items-center justify-center mr-3" 
+                              style="background: linear-gradient(135deg, #ff00ff, #00ffff);">📧</span>
                         Email Address
                     </label>
                     <input type="email" 
@@ -88,17 +333,17 @@
                            required 
                            autofocus 
                            autocomplete="username"
-                           class="w-full px-4 py-3 bg-slate-900/60 border border-slate-600/50 rounded-lg text-white
-                                  placeholder-slate-400 text-sm input-glow
-                                  focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500/40
-                                  transition-all duration-200" 
+                           class="gaming-input w-full px-4 py-3 rounded-lg text-white
+                                  placeholder-slate-400 text-sm
+                                  focus:outline-none transition-all duration-200" 
                            placeholder="Enter your email..." />
                 </div>
 
                 <!-- Password Field -->
                 <div>
-                    <label for="password" class="flex items-center text-sm font-medium text-slate-200 mb-2">
-                        <span class="w-5 h-5 bg-gradient-to-r from-purple-500 to-indigo-500 rounded text-xs flex items-center justify-center mr-2">🔒</span>
+                    <label for="password" class="flex items-center text-sm font-medium neon-text mb-3">
+                        <span class="w-6 h-6 rounded text-sm flex items-center justify-center mr-3" 
+                              style="background: linear-gradient(135deg, #9333ea, #8b5cf6);">🔒</span>
                         Password
                     </label>
                     <input type="password" 
@@ -106,10 +351,9 @@
                            name="password" 
                            required 
                            autocomplete="current-password"
-                           class="w-full px-4 py-3 bg-slate-900/60 border border-slate-600/50 rounded-lg text-white
-                                  placeholder-slate-400 text-sm input-glow
-                                  focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500/40
-                                  transition-all duration-200" 
+                           class="gaming-input w-full px-4 py-3 rounded-lg text-white
+                                  placeholder-slate-400 text-sm
+                                  focus:outline-none transition-all duration-200" 
                            placeholder="Enter your password..." />
                 </div>
 
@@ -121,12 +365,12 @@
                                name="remember"
                                class="w-4 h-4 text-emerald-600 bg-slate-900/60 border-slate-600/50 rounded 
                                       focus:ring-emerald-500/40 focus:ring-2" />
-                        <span class="ml-2 text-sm text-slate-300">Remember me</span>
+                        <span class="ml-2 text-sm neon-text-cyan">Remember me</span>
                     </label>
 
                     @if (Route::has('password.request'))
                         <a href="{{ route('password.request') }}" 
-                           class="text-sm text-emerald-400 hover:text-emerald-300 transition-colors duration-200">
+                           class="gaming-link text-sm transition-colors duration-200">
                             Forgot password?
                         </a>
                     @endif
@@ -134,12 +378,9 @@
 
                 <!-- Submit Button -->
                 <button type="submit"
-                        class="w-full bg-gradient-to-r from-emerald-600 to-emerald-500 
-                               hover:from-emerald-700 hover:to-emerald-600
-                               text-white font-semibold py-3 px-6 rounded-lg
-                               transform hover:-translate-y-0.5 hover:shadow-lg hover:shadow-emerald-500/20
+                        class="gaming-button w-full font-semibold py-3 px-6 rounded-lg
                                transition-all duration-200 
-                               focus:outline-none focus:ring-2 focus:ring-emerald-500/40
+                               focus:outline-none
                                flex items-center justify-center gap-2">
                     <span>🎮</span>
                     Sign In
@@ -153,7 +394,7 @@
                     <p class="text-slate-400 text-sm">
                         Don't have an account? 
                         <a href="{{ route('register') }}" 
-                           class="text-emerald-400 hover:text-emerald-300 font-medium transition-colors duration-200">
+                           class="gaming-link font-medium transition-colors duration-200">
                             Sign up here
                         </a>
                     </p>
@@ -164,7 +405,7 @@
         <!-- Back to Home -->
         <div class="text-center mt-6">
             <a href="{{ url('/') }}" 
-               class="text-slate-400 hover:text-emerald-400 text-sm transition-colors duration-200 flex items-center justify-center gap-2">
+               class="gaming-link text-sm transition-colors duration-200 flex items-center justify-center gap-2">
                 <span>←</span> Back to GameHub
             </a>
         </div>

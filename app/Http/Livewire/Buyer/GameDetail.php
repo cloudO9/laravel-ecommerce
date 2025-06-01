@@ -101,9 +101,9 @@ class GameDetail extends Component
             
             if ($this->game->is_for_rent) {
                 $totalCost = $this->game->rent_price * $rentalDays;
-                $message = "🛒 '{$this->game->name}' added to cart for {$rentalDays} days! Total: $" . number_format($totalCost, 2);
+                $message = "'{$this->game->name}' added to cart for {$rentalDays} days! Total: $" . number_format($totalCost, 2);
             } else {
-                $message = "🛒 '{$this->game->name}' added to cart for $" . number_format($this->game->sell_price, 2);
+                $message = " '{$this->game->name}' added to cart for $" . number_format($this->game->sell_price, 2);
             }
             
             session()->flash('message', $message);
@@ -233,7 +233,7 @@ class GameDetail extends Component
 
         // TODO: Implement actual contact/messaging system
         // For now, show seller contact info
-        $contactInfo = "📞 Contact {$this->seller->name} at: {$this->seller->email}";
+        $contactInfo = " Contact {$this->seller->name} at: {$this->seller->email}";
         
         session()->flash('message', $contactInfo);
     }

@@ -121,7 +121,7 @@ class PostGame extends Component
             $gameType = $game->is_for_rent ? 'rental' : 'sale';
             $price = $game->getFormattedPrice();
             
-            session()->flash('message', "🎉 Game '{$game->name}' posted successfully for {$gameType} at {$price}!");
+            session()->flash('message', "Game '{$game->name}' posted successfully for {$gameType} at {$price}!");
 
         } catch (\Illuminate\Validation\ValidationException $e) {
             // Re-throw validation exceptions to show field errors

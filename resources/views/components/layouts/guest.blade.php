@@ -57,48 +57,167 @@
             }
         }
 
-        /* Gaming theme overrides */
+        /* Gaming theme overrides with intense effects matching login page */
         .auth-card {
-            background: rgba(26, 26, 46, 0.9);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 255, 136, 0.2);
+            background: rgba(15, 20, 40, 0.85) !important;
+            backdrop-filter: blur(20px) !important;
+            border: 2px solid rgba(255, 0, 255, 0.2) !important;
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.8),
+                0 0 50px rgba(255, 0, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
         }
 
         .gaming-input {
-            background: rgba(15, 15, 35, 0.8) !important;
-            border: 1px solid rgba(0, 255, 136, 0.3) !important;
+            background: rgba(15, 20, 40, 0.8) !important;
+            border: 2px solid rgba(255, 0, 255, 0.3) !important;
             color: #fff !important;
+            transition: all 0.3s ease !important;
+            border-radius: 0.5rem !important;
+            padding: 0.75rem 1rem !important;
         }
 
         .gaming-input:focus {
-            border-color: rgba(0, 255, 136, 0.6) !important;
-            box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1) !important;
+            border-color: rgba(255, 0, 255, 0.8) !important;
+            box-shadow: 
+                0 0 0 3px rgba(255, 0, 255, 0.2),
+                0 0 20px rgba(255, 0, 255, 0.4),
+                0 0 40px rgba(0, 255, 255, 0.2) !important;
             outline: none !important;
+            transform: scale(1.02) !important;
+        }
+
+        .gaming-input::placeholder {
+            color: rgba(255, 255, 255, 0.4) !important;
         }
 
         .gaming-label {
-            color: #00ff88 !important;
-            font-weight: 600;
+            color: #fff !important;
+            font-weight: 600 !important;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.4) !important;
+            margin-bottom: 0.5rem !important;
+            display: block !important;
         }
 
         .gaming-button {
-            background: linear-gradient(45deg, #00ff88, #00cc6a) !important;
+            background: linear-gradient(135deg, #ff00ff, #00ffff) !important;
+            border: none !important;
             color: #000 !important;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            font-weight: 600 !important;
+            position: relative !important;
+            overflow: hidden !important;
+            transition: all 0.3s ease !important;
+            border-radius: 0.5rem !important;
+            padding: 0.75rem 1.5rem !important;
+        }
+
+        .gaming-button::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: -100% !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent) !important;
+            transition: left 0.5s ease !important;
+        }
+
+        .gaming-button:hover::before {
+            left: 100% !important;
         }
 
         .gaming-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+            transform: translateY(-2px) scale(1.02) !important;
+            box-shadow: 
+                0 10px 25px rgba(255, 0, 255, 0.4),
+                0 0 50px rgba(255, 0, 255, 0.3),
+                0 0 80px rgba(0, 255, 255, 0.2) !important;
         }
 
         .gaming-link {
-            color: #00ff88 !important;
+            color: rgba(0, 255, 255, 0.8) !important;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.4) !important;
+            transition: all 0.3s ease !important;
+            text-decoration: none !important;
         }
 
         .gaming-link:hover {
-            color: #00cc6a !important;
+            color: #00ffff !important;
+            text-shadow: 
+                0 0 15px rgba(0, 255, 255, 0.8),
+                0 0 25px rgba(0, 255, 255, 0.5) !important;
+            transform: translateY(-1px) !important;
+        }
+
+        /* Enhanced text styles for all content */
+        .text-gray-600, .text-gray-500, .text-gray-400 {
+            color: rgba(255, 255, 255, 0.7) !important;
+        }
+
+        .text-green-600 {
+            color: #00ffff !important;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5) !important;
+        }
+
+        .text-red-500, .text-red-600 {
+            color: #ff4444 !important;
+            text-shadow: 0 0 10px rgba(255, 68, 68, 0.5) !important;
+        }
+
+        .text-white {
+            color: #fff !important;
+        }
+
+        /* Dark theme overrides */
+        .bg-gray-100 {
+            background: transparent !important;
+        }
+
+        .bg-white {
+            background: rgba(15, 20, 40, 0.85) !important;
+            backdrop-filter: blur(20px) !important;
+            border: 2px solid rgba(255, 0, 255, 0.2) !important;
+        }
+
+        /* Checkbox styling */
+        input[type="checkbox"] {
+            background: rgba(15, 20, 40, 0.8) !important;
+            border: 2px solid rgba(255, 0, 255, 0.3) !important;
+            border-radius: 0.25rem !important;
+        }
+
+        input[type="checkbox"]:checked {
+            background: linear-gradient(135deg, #ff00ff, #00ffff) !important;
+            border-color: rgba(255, 0, 255, 0.8) !important;
+        }
+
+        input[type="checkbox"]:focus {
+            box-shadow: 
+                0 0 0 3px rgba(255, 0, 255, 0.2),
+                0 0 20px rgba(255, 0, 255, 0.4) !important;
+        }
+
+        /* Status and error message styling */
+        .font-medium.text-sm.text-green-600 {
+            background: rgba(0, 255, 255, 0.1) !important;
+            border: 1px solid rgba(0, 255, 255, 0.3) !important;
+            padding: 0.75rem !important;
+            border-radius: 0.5rem !important;
+            color: #00ffff !important;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5) !important;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #ff00ff, #00ffff);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
         }
 
         /* Custom scrollbar */

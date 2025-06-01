@@ -10,6 +10,7 @@ class RoleMiddleware
 {
     /**
      * Handle an incoming request.
+     * Works for both web and API routes.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
@@ -21,10 +22,20 @@ class RoleMiddleware
         $user = $request->user();
 
         if (!$user || $user->role !== $role) {
-            // Option 1: redirect to home or another page
-            // return redirect('/');
-
-            // Option 2: abort with 403 forbidden
+            // Check if this is an API request
+            if ($request->expectsJson() || $request->is('api/*')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $user 
+                        ? "Access denied. This endpoint requires '{$role}' role, but you are a '{$user->role}'."
+                        : 'Authentication required',
+                    'error' => $user ? 'insufficient_permissions' : 'unauthenticated',
+                    'required_role' => $role,
+                    'user_role' => $user ? $user->role : null
+                ], $user ? 403 : 401);
+            }
+            
+            // For web requests, use the original behavior
             abort(403, 'Unauthorized access.');
         }
 

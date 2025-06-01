@@ -290,7 +290,7 @@ class Checkout extends Component
             
             $intent = PaymentIntent::create([
                 'amount' => 2000, // $20.00
-                'currency' => 'usd',
+                'currency' => 'Rs',
             ]);
             
             \Log::info('Direct Stripe test successful', ['intent_id' => $intent->id]);

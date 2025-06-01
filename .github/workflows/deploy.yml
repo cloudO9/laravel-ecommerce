@@ -1,0 +1,94 @@
+name: Laravel Gaming Store CI/CD
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    services:
+      mongodb:
+        image: mongo:7.0
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --eval 'db.runCommand({ping: 1})'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: mongodb, mbstring, xml, ctype, json, openssl, pdo, bcmath
+        coverage: none
+
+    - name: Copy environment file
+      run: cp .env.example .env
+
+    - name: Install Composer dependencies
+      run: composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader
+
+    - name: Generate application key
+      run: php artisan key:generate
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Install NPM dependencies
+      run: npm install
+
+    - name: Build assets
+      run: npm run build
+
+    - name: Set directory permissions
+      run: chmod -R 755 storage bootstrap/cache
+
+    - name: Create storage symlink
+      run: php artisan storage:link
+
+    - name: Run tests
+      env:
+        DB_CONNECTION: mongodb
+        DB_HOST: 127.0.0.1
+        DB_PORT: 27017
+        DB_DATABASE: testing
+      run: php artisan test
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Deploy to AWS App Runner
+      run: |
+        echo " Deploying to AWS App Runner..."
+        echo "This will trigger automatic deployment via App Runner's GitHub integration"
+        echo " Deployment triggered successfully!"
+
+    - name: Notify deployment success
+      run: |
+        echo " Laravel Gaming Store deployed successfully!"
+        echo "Your app is now live on AWS!"

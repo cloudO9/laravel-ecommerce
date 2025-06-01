@@ -2,7 +2,7 @@
 <div>
     <!-- Page Header -->
     <div class="text-center mb-8">
-        <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-purple-500 to-blue-500 rounded-2xl mb-4 shadow-lg shadow-purple-500/25">
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-purple-500 to-blue-500 rounded-2xl mb-4 shadow-xl shadow-purple-600/20">
             <span class="text-2xl">📋</span>
         </div>
         <h1 class="text-3xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-2">
@@ -13,7 +13,7 @@
 
     <!-- Stats Overview -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div class="bg-slate-800/60 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 text-center hover:border-purple-500/30 transition-all duration-300">
+        <div class="bg-slate-800/60 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 text-center hover:border-purple-500/50 transition-all duration-300 transform hover:scale-[1.03] hover:shadow-xl hover:shadow-purple-500/20">
             <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mx-auto mb-3">
                 <span class="text-xl">📋</span>
             </div>
@@ -21,7 +21,7 @@
             <div class="text-slate-400 text-sm">Total Orders</div>
         </div>
         
-        <div class="bg-slate-800/60 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 text-center hover:border-emerald-500/30 transition-all duration-300">
+        <div class="bg-slate-800/60 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 text-center hover:border-emerald-500/50 transition-all duration-300 transform hover:scale-[1.03] hover:shadow-xl hover:shadow-emerald-500/20">
             <div class="w-12 h-12 bg-gradient-to-r from-emerald-500 to-green-500 rounded-xl flex items-center justify-center mx-auto mb-3">
                 <span class="text-xl">💰</span>
             </div>
@@ -29,7 +29,7 @@
             <div class="text-slate-400 text-sm">Purchases</div>
         </div>
         
-        <div class="bg-slate-800/60 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 text-center hover:border-blue-500/30 transition-all duration-300">
+        <div class="bg-slate-800/60 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 text-center hover:border-blue-500/50 transition-all duration-300 transform hover:scale-[1.03] hover:shadow-xl hover:shadow-blue-500/20">
             <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center mx-auto mb-3">
                 <span class="text-xl">📅</span>
             </div>
@@ -37,7 +37,7 @@
             <div class="text-slate-400 text-sm">Rentals</div>
         </div>
 
-        <div class="bg-slate-800/60 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 text-center hover:border-yellow-500/30 transition-all duration-300">
+        <div class="bg-slate-800/60 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 text-center hover:border-yellow-500/50 transition-all duration-300 transform hover:scale-[1.03] hover:shadow-xl hover:shadow-yellow-500/20">
             <div class="w-12 h-12 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center mx-auto mb-3">
                 <span class="text-xl">💸</span>
             </div>
@@ -48,14 +48,14 @@
 
     <!-- Success/Error Messages -->
     @if (session()->has('message'))
-        <div class="bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 px-6 py-4 rounded-xl mb-8 flex items-center">
+        <div class="bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 px-6 py-4 rounded-xl mb-8 flex items-center shadow-md">
             <span class="text-2xl mr-3">✅</span>
             <span class="font-medium">{{ session('message') }}</span>
         </div>
     @endif
 
     @if (session()->has('error'))
-        <div class="bg-red-500/20 border border-red-500/40 text-red-300 px-6 py-4 rounded-xl mb-8 flex items-center">
+        <div class="bg-red-500/20 border border-red-500/40 text-red-300 px-6 py-4 rounded-xl mb-8 flex items-center shadow-md">
             <span class="text-2xl mr-3">⚠️</span>
             <span class="font-medium">{{ session('error') }}</span>
         </div>
@@ -63,7 +63,7 @@
 
     <!-- Search & Filter Section -->
     <div class="bg-slate-800/60 backdrop-blur-lg border border-slate-700/50 rounded-2xl p-6 mb-8">
-        <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+        <h2 class="text-xl font-bold text-white mb-6 pb-3 flex items-center gap-2 border-b border-slate-700">
             <span class="text-2xl">🔍</span>
             Search & Filter Orders
         </h2>
@@ -76,7 +76,7 @@
                 <div class="relative">
                     <input type="text" wire:model.live.debounce.300ms="search" 
                         class="w-full pl-10 pr-4 py-2.5 bg-slate-900/60 border border-slate-600/50 rounded-lg text-white
-                               placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40
+                               placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40 focus:border-purple-500/40
                                transition-all duration-300"
                         placeholder="Order number, game name..." />
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -92,7 +92,7 @@
                 <label class="block text-sm font-medium text-slate-200 mb-2">Status</label>
                 <select wire:model.live="statusFilter" 
                     class="w-full px-4 py-2.5 bg-slate-900/60 border border-slate-600/50 rounded-lg text-white
-                           focus:outline-none focus:ring-2 focus:ring-purple-500/40 transition-all duration-300">
+                           focus:outline-none focus:ring-2 focus:ring-purple-500/40 focus:border-purple-500/40 transition-all duration-300">
                     <option value="">All Statuses</option>
                     <option value="pending">⏳ Pending</option>
                     <option value="paid">💳 Paid</option>
@@ -107,7 +107,7 @@
                 <label class="block text-sm font-medium text-slate-200 mb-2">Type</label>
                 <select wire:model.live="typeFilter" 
                     class="w-full px-4 py-2.5 bg-slate-900/60 border border-slate-600/50 rounded-lg text-white
-                           focus:outline-none focus:ring-2 focus:ring-purple-500/40 transition-all duration-300">
+                           focus:outline-none focus:ring-2 focus:ring-purple-500/40 focus:border-purple-500/40 transition-all duration-300">
                     <option value="">All Types</option>
                     <option value="purchase">💰 Purchases</option>
                     <option value="rental">📅 Rentals</option>
@@ -119,7 +119,7 @@
                 <label class="block text-sm font-medium text-slate-200 mb-2">Sort By</label>
                 <select wire:model.live="sortBy" 
                     class="w-full px-4 py-2.5 bg-slate-900/60 border border-slate-600/50 rounded-lg text-white
-                           focus:outline-none focus:ring-2 focus:ring-purple-500/40 transition-all duration-300">
+                           focus:outline-none focus:ring-2 focus:ring-purple-500/40 focus:border-purple-500/40 transition-all duration-300">
                     <option value="newest">🆕 Newest First</option>
                     <option value="oldest">⏰ Oldest First</option>
                     <option value="amount_high">💰 Highest Amount</option>
@@ -132,8 +132,8 @@
         @if($search || $statusFilter || $typeFilter || $sortBy !== 'newest')
             <div class="mt-6 text-center">
                 <button wire:click="clearFilters" 
-                    class="bg-slate-700/60 hover:bg-slate-600/60 text-slate-200 px-6 py-2.5 rounded-lg 
-                           transition-all duration-300 flex items-center gap-2 mx-auto">
+                    class="bg-red-600/80 hover:bg-red-500/80 text-white px-6 py-2.5 rounded-lg 
+                           transition-all duration-300 flex items-center gap-2 mx-auto shadow-md hover:shadow-lg hover:shadow-red-500/30 transform hover:-translate-y-0.5">
                     <span>🗑️</span>
                     Clear All Filters
                 </button>
@@ -158,14 +158,14 @@
             <div class="space-y-6 mb-8">
                 @foreach($orders as $order)
                     <div class="bg-slate-800/60 backdrop-blur-lg border border-slate-700/50 rounded-2xl overflow-hidden 
-                               hover:border-purple-500/50 hover:shadow-xl hover:shadow-purple-500/10 
+                               hover:border-purple-500/50 hover:shadow-xl hover:shadow-purple-500/20 
                                transition-all duration-300" wire:key="order-{{ $order->_id ?? $loop->index }}">
                         
                         <!-- Order Header -->
                         <div class="bg-slate-900/40 px-6 py-4 border-b border-slate-700/50">
                             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                                 <div class="flex items-center gap-4">
-                                    <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl flex items-center justify-center">
+                                    <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl flex items-center justify-center shadow-md">
                                         <span class="text-xl">{{ $order->type === 'rental' ? '📅' : '💰' }}</span>
                                     </div>
                                     <div>
@@ -197,7 +197,7 @@
                                             default => '📋'
                                         };
                                     @endphp
-                                    <span class="px-3 py-1.5 rounded-full text-sm font-semibold border {{ $badgeClass }}">
+                                    <span class="px-3 py-1.5 rounded-full text-sm font-semibold border {{ $badgeClass }} shadow-sm">
                                         {{ $statusIcon }} {{ ucfirst($status) }}
                                     </span>
                                     
@@ -220,7 +220,7 @@
                             @if(isset($order->items) && is_array($order->items))
                                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
                                     @foreach($order->items as $item)
-                                        <div class="bg-slate-900/40 rounded-lg p-4 border border-slate-700/30">
+                                        <div class="bg-slate-900/40 rounded-lg p-4 border border-slate-700/30 hover:border-slate-600/50 transition-colors duration-200">
                                             <div class="flex items-start gap-3">
                                                 <div class="w-12 h-12 bg-slate-700/50 rounded-lg flex items-center justify-center flex-shrink-0">
                                                     <span class="text-2xl">🎮</span>
@@ -261,7 +261,7 @@
                             <div class="flex flex-wrap gap-3">
                                 <button wire:click="viewOrder('{{ $order->_id ?? '' }}')" 
                                     class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium
-                                           transition-colors duration-200 flex items-center gap-2">
+                                           transition-all duration-200 flex items-center gap-2 transform hover:-translate-y-0.5 hover:shadow-lg hover:shadow-blue-500/30">
                                     <span>👁️</span>
                                     View Details
                                 </button>
@@ -269,7 +269,7 @@
                                 @if(in_array($order->status ?? '', ['delivered', 'paid']))
                                     <button wire:click="reorder('{{ $order->_id ?? '' }}')" 
                                         class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium
-                                               transition-colors duration-200 flex items-center gap-2">
+                                               transition-all duration-200 flex items-center gap-2 transform hover:-translate-y-0.5 hover:shadow-lg hover:shadow-emerald-500/30">
                                         <span>🔄</span>
                                         Reorder
                                     </button>
@@ -277,7 +277,7 @@
                                 
                                 <button wire:click="downloadInvoice('{{ $order->_id ?? '' }}')" 
                                     class="bg-slate-600 hover:bg-slate-700 text-white px-4 py-2 rounded-lg text-sm font-medium
-                                           transition-colors duration-200 flex items-center gap-2">
+                                           transition-all duration-200 flex items-center gap-2 transform hover:-translate-y-0.5 hover:shadow-lg hover:shadow-slate-500/30">
                                     <span>📄</span>
                                     Invoice
                                 </button>
@@ -296,7 +296,7 @@
         @else
             <!-- No Orders Found -->
             <div class="text-center py-20">
-                <div class="w-32 h-32 bg-slate-700/30 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                <div class="w-32 h-32 bg-slate-700/30 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg">
                     <span class="text-6xl opacity-50">📋</span>
                 </div>
                 <h3 class="text-2xl font-bold text-slate-300 mb-4">No orders found</h3>
@@ -310,7 +310,7 @@
                 @if($search || $statusFilter || $typeFilter)
                     <button wire:click="clearFilters" 
                         class="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-xl font-semibold 
-                               transition-all duration-300 flex items-center gap-2 mx-auto mb-4">
+                               transition-all duration-300 flex items-center gap-2 mx-auto mb-4 transform hover:-translate-y-0.5 hover:shadow-lg hover:shadow-purple-500/30">
                         <span>🔄</span>
                         Clear Filters
                     </button>
@@ -318,7 +318,7 @@
                 <a href="{{ route('buyer.dashboard') }}" 
                    class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 
                           text-white px-8 py-4 rounded-xl font-bold text-lg
-                          transform hover:-translate-y-1 hover:shadow-lg
+                          transform hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-600/40
                           transition-all duration-300 inline-flex items-center gap-3">
                     <span>🎮</span>
                     Browse Games

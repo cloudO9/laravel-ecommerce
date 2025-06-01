@@ -66,8 +66,8 @@ class Cart extends Component
             $this->loadCart();
             
             $message = $game->is_for_rent ? 
-                "🛒 '{$game->name}' added to cart for {$rentalDays} days!" :
-                "🛒 '{$game->name}' added to cart!";
+                " '{$game->name}' added to cart for {$rentalDays} days!" :
+                "'{$game->name}' added to cart!";
                 
             session()->flash('message', $message);
             
@@ -90,7 +90,7 @@ class Cart extends Component
                 
                 $this->loadCart();
                 
-                session()->flash('message', "🗑️ '{$gameName}' removed from cart.");
+                session()->flash('message', "'{$gameName}' removed from cart.");
             }
         } catch (\Exception $e) {
             session()->flash('error', 'Failed to remove item from cart.');
@@ -155,7 +155,7 @@ class Cart extends Component
                 // Calculate new total for this item
                 $newTotal = $cartItem->game->rent_price * $days;
                 
-                session()->flash('message', "📅 Rental period updated to {$days} days. New total: $" . number_format($newTotal, 2));
+                session()->flash('message', " Rental period updated to {$days} days. New total: $" . number_format($newTotal, 2));
             }
         } catch (\Exception $e) {
             session()->flash('error', 'Failed to update rental days.');
@@ -288,7 +288,7 @@ class Cart extends Component
         try {
             CartModel::where('user_id', Auth::id())->delete();
             $this->loadCart();
-            session()->flash('message', '🗑️ Cart cleared successfully.');
+            session()->flash('message', ' Cart cleared successfully.');
         } catch (\Exception $e) {
             session()->flash('error', 'Failed to clear cart.');
         }

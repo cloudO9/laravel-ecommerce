@@ -4,7 +4,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Foundation\Configuration\Middleware;
-use App\Http\Middleware\VerifyCsrfToken;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -16,17 +15,15 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         // Register your custom route middleware aliases here
         $middleware->alias([
-            'role' => RoleMiddleware::class,
+            'role' => RoleMiddleware::class,              // Works for both web and API
             'admin.auth' => \App\Http\Middleware\AdminAuth::class,
         ]);
         
         // Exclude API routes from CSRF protection
         $middleware->web(replace: [
-            // Replace the default VerifyCsrfToken middleware with your custom one
             \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class => \App\Http\Middleware\VerifyCsrfToken::class,
         ]);
         
-        // Set api middleware configuration without CSRF protection
         $middleware->api(remove: [
             \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
         ]);

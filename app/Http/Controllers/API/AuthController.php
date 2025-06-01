@@ -1,5 +1,6 @@
 <?php
 // app/Http/Controllers/API/AuthController.php
+
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
@@ -12,6 +13,45 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'role' => 'required|in:seller,buyer',
+            'device_name' => 'nullable|string',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => $request->role,
+        ]);
+
+        // Create token manually for MongoDB compatibility
+        $deviceName = $request->device_name ?? $request->ip();
+        $plainTextToken = Str::random(40);
+        
+        $accessToken = PersonalAccessToken::create([
+            'name' => $deviceName,
+            'token' => hash('sha256', $plainTextToken),
+            'abilities' => ['*'],
+            'tokenable_type' => get_class($user),
+            'tokenable_id' => $user->_id,
+        ]);
+
+        // Format token as Sanctum expects: {id}|{plaintext}
+        $token = $accessToken->_id . '|' . $plainTextToken;
+
+        return response()->json([
+            'token' => $token,
+            'user' => $user,
+            'message' => 'Registration successful'
+        ], 201);
+    }
+
     public function login(Request $request)
     {
         $request->validate([
